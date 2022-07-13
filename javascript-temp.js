@@ -6,6 +6,11 @@ document.addEventListener("dragstart", event => {
   dragged.style.opacity='0.4'
 });
 
+document.addEventListener("dragend", event => {
+  
+  event.target.style.removeProperty('opacity')
+});
+
 document.addEventListener("dragover", event => {
   // prevent default to allow drop
   event.preventDefault();
@@ -32,7 +37,6 @@ document.addEventListener("drop", event => {
     dragged.parentNode.removeChild(dragged);
     event.target.appendChild(dragged);
     event.target.style.removeProperty('border')
-    dragged.style.opacity='1'
   }
 });
 
