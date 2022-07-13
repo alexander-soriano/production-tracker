@@ -35,3 +35,13 @@ document.addEventListener("drop", event => {
     dragged.style.opacity='1'
   }
 });
+
+const days = document.querySelectorAll('.days>div')
+const foreman = document.querySelectorAll('.foreman>div')
+const table = document.querySelector('.table')
+
+for (i=0; i<days.length*foreman.length; i++) {
+  const cell = document.createElement('div')
+  cell.setAttribute('class','cell')
+  table.appendChild(cell) 
+}
