@@ -1,5 +1,4 @@
 let dragged = null;
-let currentCell = null;
 
 document.addEventListener("dragstart", event => {
   // store a ref. on the dragged elem
@@ -49,8 +48,7 @@ document.addEventListener("drop", event => {
     
     dragged.style.position=`relative`
     dragged.style.width=`${dragged.dataset.manday*100}px`
-    currentCell = event.target
-    console.log(dragged.dataset.manday)
+    // console.log(dragged.dataset.manday)
   }
 });
 
@@ -61,5 +59,8 @@ const table = document.querySelector('.table')
 for (i=0; i<days.length*foreman.length; i++) {
   const cell = document.createElement('div')
   cell.setAttribute('class','cell')
+  cell.setAttribute('data-index',`${i}`)
   table.appendChild(cell) 
 }
+
+const day = new Date()
