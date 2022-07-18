@@ -51,11 +51,16 @@ body {
 
 .cell {
   display: grid;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   height: 50px;
   width: 100px;
+}
+
+.items {
+  justify-content: center;
+  align-items: center;
 }
 
 .activity {

@@ -1,9 +1,14 @@
 let dragged = null;
+let currentCell = null;
 
 document.addEventListener("dragstart", event => {
   // store a ref. on the dragged elem
   dragged = event.target;
   dragged.style.opacity='0.4'
+
+  // dragged.parentNode.style.removeProperty('grid-column');
+  
+
 });
 
 document.addEventListener("dragend", event => {
@@ -25,6 +30,7 @@ document.addEventListener("dragenter", event => {
 document.addEventListener("dragleave", event => {
   if (event.target.className=='cell') {
     event.target.style.removeProperty('border')
+    // event.target.removeAttribute('style');
   };
 });
 
@@ -37,6 +43,14 @@ document.addEventListener("drop", event => {
     dragged.parentNode.removeChild(dragged);
     event.target.appendChild(dragged);
     event.target.style.removeProperty('border')
+    // event.target.removeAttribute('style')
+    // event.target.style.gridColumn=`auto / span ${dragged.dataset.manday}`
+    dragged.style.removeProperty('width');
+    
+    dragged.style.position=`relative`
+    dragged.style.width=`${dragged.dataset.manday*100}px`
+    currentCell = event.target
+    console.log(dragged.dataset.manday)
   }
 });
 
