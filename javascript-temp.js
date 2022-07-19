@@ -5,7 +5,6 @@ document.addEventListener("dragstart", event => {
   dragged = event.target;
   dragged.style.opacity='0.4'
 
-  // dragged.parentNode.style.removeProperty('grid-column');
   
 
 });
@@ -16,7 +15,6 @@ document.addEventListener("dragend", event => {
 });
 
 document.addEventListener("dragover", event => {
-  // prevent default to allow drop
   event.preventDefault();
 });
 
@@ -29,7 +27,6 @@ document.addEventListener("dragenter", event => {
 document.addEventListener("dragleave", event => {
   if (event.target.className=='cell') {
     event.target.style.removeProperty('border')
-    // event.target.removeAttribute('style');
   };
 });
 
@@ -42,19 +39,42 @@ document.addEventListener("drop", event => {
     dragged.parentNode.removeChild(dragged);
     event.target.appendChild(dragged);
     event.target.style.removeProperty('border')
-    // event.target.removeAttribute('style')
-    // event.target.style.gridColumn=`auto / span ${dragged.dataset.manday}`
     dragged.style.removeProperty('width');
     
     dragged.style.position=`relative`
     dragged.style.width=`${dragged.dataset.manday*100}px`
-    // console.log(dragged.dataset.manday)
   }
 });
 
-const days = document.querySelectorAll('.days>div')
-const foreman = document.querySelectorAll('.foreman>div')
-const table = document.querySelector('.table')
+// addDays function
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
+
+var currentDate = new Date();
+var range = 120;
+var daysParent = document.querySelector('.days')
+var monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var daysArr = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',]
+
+for (i=0; i<range; i++){
+  loopDate = currentDate.addDays(i);
+  var cell = document.createElement('div');
+  dateMonth = monthsArr[loopDate.getMonth()];
+  dateDate = loopDate.getDate();
+  dateDay = daysArr[loopDate.getDay()];
+  dateString = `${dateMonth} ${dateDate} ${dateDay}`
+  cell.textContent=`${dateString}`
+
+  daysParent.appendChild(cell)
+}
+
+// create cells function
+const days = document.querySelectorAll('.days div');
+const foreman = document.querySelectorAll('.foreman>div');
+const table = document.querySelector('.table');
 
 for (i=0; i<days.length*foreman.length; i++) {
   const cell = document.createElement('div')
@@ -63,4 +83,4 @@ for (i=0; i<days.length*foreman.length; i++) {
   table.appendChild(cell) 
 }
 
-const day = new Date()
+
